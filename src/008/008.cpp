@@ -43,6 +43,7 @@ int main(){
     uint64_t i = calcDistance("AAA",path,map);
     
     vector<string> currentElms;
+    vector<uint64_t> stepPerElms;
 
     for(auto m : map){
         if(m.first[2] == 'A') currentElms.push_back(m.first);
@@ -52,22 +53,20 @@ int main(){
     uint64_t step = 0;
     for(int i = 0; i < currentElms.size(); i++){
         while(currentElms[i][2] != 'Z'){
-            if(path[i % path.size()] == 'L'){
+            if(path[step % path.size()] == 'L'){
                 currentElms[i] = get<0>(map.find(currentElms[i])->second);
             }else{
                 currentElms[i] = get<1>(map.find(currentElms[i])->second);
             }
             step++;
-            printf("\r%llu",step);
         }
-        sum+= step;
-        printf("\r%llu\n",step);
-
+        stepPerElms.push_back(step);
         step = 0;
     }
-
-    printf("%d\n",i);
-    uint64_t ppcm = lcm(1, sum);
+    uint64_t ppcm = 1;
+    for(auto s : stepPerElms){
+        ppcm = lcm(ppcm, s);
+    }
     cout << ppcm << endl;
     return 0;
 }
