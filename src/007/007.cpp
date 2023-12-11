@@ -25,11 +25,7 @@ int getIndex(char c){
 bool comp(Player* p1, Player* p2){
     if(p1->strength != p2->strength) return p1->strength < p2->strength;
     for(int i = 0; i < p1->hand.size(); i++){
-        for (int j = 0; j < p2->hand.size(); j++)
-        {
-            if(p1->hand[i] != p2->hand[j]) return getIndex(p1->hand[i]) > getIndex(p2->hand[j]);
-        }
-        
+        if(p1->hand[i] != p2->hand[i]) return getIndex(p1->hand[i]) > getIndex(p2->hand[i]);  
     }
     return false;
 }
