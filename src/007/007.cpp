@@ -74,7 +74,7 @@ void setStrength(Player &p){
 }
 
 int main(){
-    FILE* file = fopen("../../Input/exemple.txt","r");
+    FILE* file = fopen("../../Input/007.txt","r");
     char buffer[100];
     vector<Player*> players;
     char cards[6];
@@ -91,15 +91,12 @@ int main(){
     
     for(auto player : players){
         setStrength(*player);
-        cout << player->strength << endl;
     }
     sort(players.begin(), players.end(), comp);
-
-    // for(auto player : players){
-    //     for(auto card : player->hand){
-    //         cout << card;
-    //     }
-    //     cout << " " << player->bid << endl; 
-    // }
+    uint64_t sum = 0;
+    for(int i = 0; i < players.size();i++){
+        sum += players[i]->bid * (i+1);
+    }
+    cout << sum;
     return 0;
 }
